@@ -59,7 +59,7 @@ public class ScenarioContext {
 
 		if (scenario.get() != null) {
 			scenarioName = scenario.get().getName();
-			CucumberLogUtils.logToConsole("Scenario Name: " + scenarioName);
+			//CucumberLogUtils.logToConsole("Scenario Name: " + scenarioName);
 		}
 
 		return scenarioName;

@@ -31,7 +31,7 @@ public class HooksSteps {
 	@Before
 	public void genericSetUp(Scenario s) throws TestingException {
 		PageInitializer.initializeAllPages();
-		System.out.println("Scenario Name: "+s.getName());
+		System.out.println("Starting Scenario: "+s.getName());
 		ScenarioContext.localConf = LocalConfUtils.loadLocalConf();
 		ScenarioContext.scenario.set(s);
 		String buildNumber = LocalConfUtils.getProperty(BUILD_NUMBER);
@@ -66,12 +66,12 @@ public class HooksSteps {
 	 * @throws MalformedURLException
 	 */
 	@After
-	public void genericTearDown() throws TestingException {
+	public void genericTearDown(Scenario s) throws TestingException {
 
 		if (ScenarioContext.webDriver != null) {
 			MiscUtils.sleep(2000);
 		}
-		System.out.println("Generic After Common Steps");
+		System.out.println("Ending Scenario: "+s.getName());
 		String scenarioName = ScenarioContext.getScenarioName();
 		String scenarioResult = ScenarioContext.scenario.get().getStatus().toString();
 		String scenarioResultsDir = ConfUtils.getResultsDir();

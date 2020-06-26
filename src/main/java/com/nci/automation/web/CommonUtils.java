@@ -18,6 +18,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.nci.automation.utils.LocalConfUtils;
+
 
 /**
  * This is a utill class which contains all common methods that 
@@ -70,7 +72,7 @@ public class CommonUtils extends WebDriverUtils{
 	 * @param dropDownElement Pass the WebElement of the desired dropDown.
 	 * @param ValueOfDropDown Pass the Visible text of DropDown to be selected.
 	 */
-	public static void selectDropDownValue(WebElement dropDownWebEl, String VisibleTextOfDD) {
+	public static void selectDropDownValue(String VisibleTextOfDD,WebElement dropDownWebEl) {
 		Select select = new Select(dropDownWebEl);
 		select.selectByVisibleText(VisibleTextOfDD);
 	}
@@ -80,7 +82,7 @@ public class CommonUtils extends WebDriverUtils{
 	 * @param dropDownElement Pass the value to be selected.
 	 * @param ValueOfDropDown Pass the WebElement of the dropDown.
 	 */
-	public static void selectDropDownValue(String value, WebElement element) {
+	public static void selectDropDownValue(WebElement element,String value) {
 		Select select = new Select(element);
 		select.selectByValue(value);
 	}
@@ -246,6 +248,46 @@ public class CommonUtils extends WebDriverUtils{
 		WebDriverWait wait = new WebDriverWait(getWebDriver(), timeOut);
 		return wait.until(ExpectedConditions.presenceOfElementLocated((By.xpath(element))));
 	}
+	
+	/**
+     * This method will create an Object of WebDriverWait
+     * 
+     * @return WebDriverWait
+     */
+     public static WebDriverWait getWaitObject() {
+    	 long explicitWait=Long.valueOf(LocalConfUtils.getProperty("explicitWaitInSeconds"));
+                 WebDriverWait wait = new WebDriverWait(getWebDriver(), explicitWait);
+                 return wait;
+     }
+
+     /**
+     * This method will wait until element becomes clickable
+     * 
+     * @param element
+     */
+     public static void waitForClickability(WebElement element) {
+                 getWaitObject().until(ExpectedConditions.elementToBeClickable(element));
+     }
+
+     /**
+     * This method will wait until element becomes visible
+     * 
+     * @param element
+     */
+     public static void waitForVisibility(WebElement element) {
+                 getWaitObject().until(ExpectedConditions.visibilityOf(element));
+     }
+     
+
+     /**
+     * This method will wait until element becomes invisible
+     * 
+     * @param element
+     */
+     public static void waitForInvisibility(WebElement element) {
+                 getWaitObject().until(ExpectedConditions.invisibilityOf(element));
+     }
+
 	
 	/**
 	 * This method will select the specified day from the specified calendar table

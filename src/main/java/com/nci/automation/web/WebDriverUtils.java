@@ -6,8 +6,10 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -34,6 +36,13 @@ public class WebDriverUtils {
 
 	private final static Logger logger = Logger.getLogger(WebDriverUtils.class);
 	public static File ffDownloadsFolder = null;
+
+	public static final String FF_DOWNLOADS_FOLDER_PATH = LocalConfUtils.getRootDir() + File.separator + "target"
+			+ File.separator + "firefox_downloads";
+	public static final String CHROME_DOWNLOADS_FOLDER_PATH = LocalConfUtils.getRootDir() + File.separator + "target"
+			+ File.separator + "chrome_downloads";
+	public static final String SAUCE_DOWNLOADS_FOLDER_PATH = LocalConfUtils.getRootDir() + File.separator + "target"
+			+ File.separator + "sauce_downloads";
 
 	public static File getFfDownloadsFolder() {
 		return ffDownloadsFolder;
@@ -96,6 +105,8 @@ public class WebDriverUtils {
 					ScenarioContext.webDriver.set(webDriver);
 					long implicitWaitInSeconds = Long.valueOf(LocalConfUtils.getProperty("implicitWaitInSeconds"));
 					webDriver.manage().timeouts().implicitlyWait(implicitWaitInSeconds, TimeUnit.SECONDS);
+					long pageLoadTimeout = Long.valueOf(LocalConfUtils.getProperty("pageLoadTimeoutInSeconds"));
+					webDriver.manage().timeouts().pageLoadTimeout(pageLoadTimeout, TimeUnit.SECONDS);
 				}
 				return webDriver;
 
@@ -103,19 +114,19 @@ public class WebDriverUtils {
 
 				if (Constants.BROWSER_CHROME.equals(browser)) {
 
-//							DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-//							HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
-					//
-//							new File(CHROME_DOWNLOADS_FOLDER_PATH).mkdirs();
-//							chromePrefs.put("download.default_directory", CHROME_DOWNLOADS_FOLDER_PATH);
-					//
-//							ChromeOptions options = new ChromeOptions();
-//							options.addArguments("test-type");
-//							options.addArguments("--disable-extensions");
-//							options.addArguments("--start-maximized");
-//							options.setExperimentalOption("prefs", chromePrefs);
-					//
-//							capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+					DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+					HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+
+					new File(CHROME_DOWNLOADS_FOLDER_PATH).mkdirs();
+					chromePrefs.put("download.default_directory", CHROME_DOWNLOADS_FOLDER_PATH);
+
+					ChromeOptions options = new ChromeOptions();
+					options.addArguments("test-type");
+					options.addArguments("--disable-extensions");
+					options.addArguments("--start-maximized");
+					options.setExperimentalOption("prefs", chromePrefs);
+
+					capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 
 					webDriver = new ChromeDriver();
 					return webDriver;
@@ -127,7 +138,7 @@ public class WebDriverUtils {
 					desiredCapabilities.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, Boolean.TRUE);
 					desiredCapabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, "ignore");
 					webDriver = new InternetExplorerDriver(desiredCapabilities);
-					//webDriver.manage().window().maximize();
+					// webDriver.manage().window().maximize();
 					return webDriver;
 
 				} else if (browser.equalsIgnoreCase(Constants.BROWSER_FIREFOX)) {
@@ -183,7 +194,7 @@ public class WebDriverUtils {
 			long implicitWaitInSeconds = Long.valueOf(LocalConfUtils.getProperty("implicitWaitInSeconds"));
 			webDriver.manage().timeouts().implicitlyWait(implicitWaitInSeconds, TimeUnit.SECONDS);
 		}
-		
+
 		String osName = Constants.GET_OS_NAME;
 
 		if (!browser.equals("phantomjs")) {
@@ -193,14 +204,14 @@ public class WebDriverUtils {
 				webDriver.manage().window().maximize();
 			}
 		}
-		
+
 		return webDriver;
 	}
 
-	
 	/**
-	 * This method sets the path to executable drivers based on the operating system.
-	 * No setting needs to be changed if switching to another operating system.
+	 * This method sets the path to executable drivers based on the operating
+	 * system. No setting needs to be changed if switching to another operating
+	 * system.
 	 */
 	private static void setDriverExecutables() {
 
@@ -214,7 +225,7 @@ public class WebDriverUtils {
 			if (osName.contains("Mac")) {
 				System.setProperty(Constants.CHROME_KEY, Constants.CHROME_PATH);
 			} else if (osName.contains("Window")) {
-				System.setProperty(Constants.CHROME_KEY, Constants.CHROME_PATH+".exe");
+				System.setProperty(Constants.CHROME_KEY, Constants.CHROME_PATH + ".exe");
 			}
 
 		} else if (browser.equalsIgnoreCase(Constants.BROWSER_IE)) {
@@ -244,7 +255,6 @@ public class WebDriverUtils {
 		}
 	}
 
-	
 	/**
 	 * This method will close the current web-driver
 	 */
@@ -257,9 +267,9 @@ public class WebDriverUtils {
 		}
 	}
 
-	
 	/**
 	 * The method will provide a new driver (complete new browser).
+	 * 
 	 * @return
 	 */
 	public static WebDriver getNewDriver() {
@@ -348,9 +358,9 @@ public class WebDriverUtils {
 		}
 	}
 
-
 	/**
 	 * Use this method to get new sauce driver
+	 * 
 	 * @param capabilities
 	 * @return
 	 */
@@ -375,9 +385,9 @@ public class WebDriverUtils {
 
 	}
 
-
 	/**
 	 * Use this method in need of taking screenshot
+	 * 
 	 * @return image in byte codes
 	 */
 	public static byte[] getScreenShot() {
@@ -392,10 +402,9 @@ public class WebDriverUtils {
 		return screenshot;
 	}
 
-	
-
 	/**
 	 * Use this method to navigate to an external url
+	 * 
 	 * @param url
 	 */
 	public static void navToExternalPage(String url) {
@@ -412,7 +421,6 @@ public class WebDriverUtils {
 		}
 	}
 
-	
 	public static void suppressAlert() {
 
 		Robot robot = null;
@@ -428,10 +436,10 @@ public class WebDriverUtils {
 			robot.keyRelease(KeyEvent.VK_ENTER);
 		}
 	}
-	
 
 	/**
 	 * Fetches current URL from browser window
+	 * 
 	 * @param driver
 	 * @return
 	 */
@@ -444,7 +452,6 @@ public class WebDriverUtils {
 		return url;
 	}
 
-	
 	public static void navigateForward(WebDriver driver) {
 		driver.navigate().forward();
 	}

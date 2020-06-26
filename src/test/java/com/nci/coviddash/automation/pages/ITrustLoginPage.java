@@ -1,5 +1,6 @@
 package com.nci.coviddash.automation.pages;
 
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -10,6 +11,10 @@ import com.nci.automation.xceptions.TestingException;
 
 public class ITrustLoginPage extends CommonUtils{
 
+	
+	
+	@FindBy(xpath = "//div[@class='col-md-8']//a")
+	private WebElement loginLink;
 	
 	@FindBy(xpath = "//input[@id='USER']")
 	private WebElement userNameField;
@@ -57,5 +62,7 @@ public class ITrustLoginPage extends CommonUtils{
 	public void clickSignInButton(){
 		signInButton.click();
 	}
+	
+	
 	
 }
