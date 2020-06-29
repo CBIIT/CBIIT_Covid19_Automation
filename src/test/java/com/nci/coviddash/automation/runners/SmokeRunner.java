@@ -18,7 +18,7 @@ import cucumber.api.junit.Cucumber;
 		, "junit:target/cucumber.xml"
 		, "rerun:target/failed.txt","pretty"}
 		, features="src/test/resources/features"
-		, glue="com.nci.automation.steps"
+		, glue="com.nci.coviddash.automation.steps"
 		, tags="@smoke"
 		, dryRun = false
 		, monochrome=true

@@ -8,22 +8,23 @@ Feature: COVID Dashboard
     Given User navigates to the COVID-19 Biorepository login page
     When the User clicls on Login to access button
     And logs in by entering iTrust credentials
-    Then the User is directed to the Submissions home page
+    Then the User is directed to the home page
+    
 
-
+  @regression
   Scenario Outline: Validate Autopulation
     Given a User has logged in to the NIH COVID-19 Biorepository Dashboard Application
     And user validates that Institute, Division, Email Address, and Phone Number fields are not editable
     When the User selects a principal Investigator by typing their name in the principal Investigator search box. "<PI Name>"
     Then the Institute, Division, Email Address, and Phone Number fields are auto-populated. "<istitName>","<dvsnName>","<piEmail>","<piPhonNum>"
-    And user validates that Institute, Division, Email Address, and Phone Number fields are not editable
+    Then user validates that Institute, Division, Email Address, and Phone Number fields are not editable
+    
 
     Examples: 
       | PI Name      | istitName | dvsnName | piEmail  | piPhonNum  |
       | Sohil Zalmay | NCI       | OD       | @nih.gov | 2402766573 |
 
-
-  @progression
+  @smoke @regression
   Scenario: Validate Study Submission
     Given a User has logged in to the NIH COVID-19 Biorepository Dashboard Application
     And the user verifies that the submit button is disbaled by default
@@ -37,3 +38,6 @@ Feature: COVID Dashboard
     And attaches an IRB Protocol Document
     And attaches a Related URL
     Then the User is able to successfully submit a study
+    
+    
+		
