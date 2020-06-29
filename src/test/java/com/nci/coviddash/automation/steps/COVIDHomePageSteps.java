@@ -19,8 +19,9 @@ public class COVIDHomePageSteps {
 	public void the_User_clicls_on_Login_to_access_button() {
 		pageCache.getCOVIDHomePageImpl().clickOnLoginToAccessBtn();
 	}
+	
 
-	@Then("the User is directed to the Submissions home page")
+	@When("the User is directed to the home page")
 	public void the_User_is_directed_to_the_Submissions_home_page() {
 		pageCache.getCOVIDHomePageImpl().verifyUserLoggedIn();
 	}

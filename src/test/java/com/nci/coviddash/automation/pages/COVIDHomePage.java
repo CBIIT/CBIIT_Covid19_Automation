@@ -7,12 +7,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import com.nci.automation.local.utils.COVIDConstants;
+import com.nci.automation.utils.CucumberLogUtils;
 import com.nci.automation.utils.MiscUtils;
 import com.nci.automation.web.CommonUtils;
 import com.nci.automation.web.JavascriptUtils;
 import com.nci.automation.web.WebDriverUtils;
-
-
 
 
 public class COVIDHomePage extends CommonUtils{
@@ -20,7 +19,13 @@ public class COVIDHomePage extends CommonUtils{
 	// add xpaths
 	@FindBy(xpath = "//button[@ng-click='c.login()']")
 	private WebElement iTrustRedirectForLogin;
-
+	
+	@FindBy(xpath = "//span[contains(@class,'user-name')]")
+	private WebElement covidHomeLogoutDD;
+	
+	@FindBy(xpath = "//a[@ng-click='logout();']")
+	private WebElement covidHomeLogoutLink;
+	
 	@FindBy(xpath = "//span[@class='select2-arrow']")
 	private WebElement principalInvestigatorDD;
 
@@ -84,11 +89,17 @@ public class COVIDHomePage extends CommonUtils{
 	@FindBy(xpath = "//button[@ng-click='c.addNewUrl();']")
 	private WebElement urlSaveButton;
 	
+	@FindBy(xpath="//h4[text()='Related URL(s)']/following::a[1]")
+	private WebElement addedUrlLink;
+	
 	@FindBy(xpath = "//button[@ng-click='c.confirmSubmission();']")
 	private WebElement submitButton;
 	
 	@FindBy(xpath = "//button[text()='Confirm and Submit']")
 	private WebElement confirmSubmitButton;
+	
+	@FindBy(xpath = "//div[@class='uploaded-files']/div/p")
+	private WebElement uploadedFile;
 	
 	
 
@@ -169,7 +180,9 @@ public class COVIDHomePage extends CommonUtils{
 	
 	public void attachStudyDocument() {
 		MiscUtils.sleep(1000);
-		attachmentButton.sendKeys(COVIDConstants.DOC_PATH);	
+		attachmentButton.sendKeys(COVIDConstants.DOC_PATH);
+		boolean isFileUploaded=uploadedFile.getText().contains(".docx");
+		Assert.assertTrue(isFileUploaded);
 	}
 	
 	public void attachURL() {
@@ -178,6 +191,8 @@ public class COVIDHomePage extends CommonUtils{
 		urlField.sendKeys(COVIDConstants.TEST_URL);
 		JavascriptUtils.clickByJS(urlAddButton);
 		JavascriptUtils.clickByJS(urlSaveButton);
+		boolean addedURL=addedUrlLink.getText().contains(COVIDConstants.TEST_URL);
+		Assert.assertTrue(addedURL);
 	}
 	
 	public void deleteURL() {
@@ -189,7 +204,14 @@ public class COVIDHomePage extends CommonUtils{
 	public void clickSubmitAndConfirmSubButton() {
 		JavascriptUtils.clickByJS(submitButton);
 		MiscUtils.sleep(500);
+		CucumberLogUtils.logScreenShot();
 		JavascriptUtils.clickByJS(confirmSubmitButton);
+	}
+	
+	public void logOutFromCovid() {
+		JavascriptUtils.clickByJS(covidHomeLogoutDD);
+		MiscUtils.sleep(500);
+		JavascriptUtils.clickByJS(covidHomeLogoutLink);
 	}
 	
 }

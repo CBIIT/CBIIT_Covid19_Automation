@@ -47,7 +47,7 @@ public class SubmissionsPage extends CommonUtils{
 		pendingAprovalNextButton.click();
 	}
 	
-	public void enterRejecttionReasonClickConfirm() {
+	public void enterRejectionReasonClickConfirm() {
 		rejectSubmisnTextArea.sendKeys("It was a test study");
 		JavascriptUtils.clickByJS(rejectConfirmButton);
 	}
