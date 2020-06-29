@@ -1,23 +1,20 @@
 Feature: Login
   Reviewer and Regular User/PI Login
+  Description: This feature tests User Story COVIDDASH-133, 141
 
-  @tag1
+  @smoke @regression
+  Scenario: Covid dash Login
+    Given User navigates to the COVID-19 Biorepository login page
+    When the User clicks on Login to access button
+    And logs in by entering iTrust credentials
+    Then the User is directed to the home page
+
+  @progression
   Scenario: Reviewer Login
-    Given I want to write a step with precondition
-    And some other precondition
-    When I complete action
-    And some other action
-    And yet another action
-    Then I validate the outcomes
-    And check more outcomes
+    Given a Reviewer navigates to the COVID-19 Biorepository login page
+    When the Reviewer selects Login to access button
+    And logs in by entering iTrust credentials
+    Then the Reviewer is directed to the Submissions page
+    And is able to see two tables names "Studies Pending Approval" and "Approved / Rejected Studies"
 
-  @tag2
-  Scenario Outline: Title of your scenario outline
-    Given I want to write a step with <name>
-    When I check for the <value> in step
-    Then I verify the <status> in step
 
-    Examples: 
-      | name  | value | status  |
-      | name1 |     5 | success |
-      | name2 |     7 | Fail    |
