@@ -92,6 +92,8 @@ public class COVIDHomePage extends CommonUtils{
 	@FindBy(xpath="//h4[text()='Related URL(s)']/following::a[1]")
 	private WebElement addedUrlLink;
 	
+	
+	
 	@FindBy(xpath = "//button[@ng-click='c.confirmSubmission();']")
 	private WebElement submitButton;
 	
@@ -100,6 +102,12 @@ public class COVIDHomePage extends CommonUtils{
 	
 	@FindBy(xpath = "//div[@class='uploaded-files']/div/p")
 	private WebElement uploadedFile;
+	
+	@FindBy(xpath = "//*[@id='error-modal']/div/div/div[3]/button")
+	private WebElement goBackButton;
+	
+	@FindBy(xpath = "//*[text()=' Study documentation is required. Please attach the appropriate file(s). ']")
+	private WebElement studyDocumentationErrorMessage;
 	
 	
 
@@ -144,6 +152,15 @@ public class COVIDHomePage extends CommonUtils{
 	public WebElement submitButton() {
 		return submitButton;
 	}
+	
+	
+	public WebElement goBackButton() {
+		return goBackButton;
+	}
+	
+	public WebElement studyDocumentationErrorMessage() {
+		return studyDocumentationErrorMessage;
+	}
 
 	public void enterIBRProtocolNumber(String ibrNumber) {
 		ibrProtocolField.sendKeys(ibrNumber);
@@ -178,6 +195,8 @@ public class COVIDHomePage extends CommonUtils{
 		studySpecificAims.sendKeys(aim);
 	}
 	
+	
+	
 	public void attachStudyDocument() {
 		MiscUtils.sleep(1000);
 		attachmentButton.sendKeys(COVIDConstants.DOC_PATH);
@@ -192,6 +211,22 @@ public class COVIDHomePage extends CommonUtils{
 		JavascriptUtils.clickByJS(urlAddButton);
 		JavascriptUtils.clickByJS(urlSaveButton);
 		boolean addedURL=addedUrlLink.getText().contains(COVIDConstants.TEST_URL);
+		Assert.assertTrue(addedURL);
+	}
+	
+	public void attachingMultipleURLs() {
+		JavascriptUtils.clickByJS(urlButton);
+		MiscUtils.sleep(1000);
+		urlField.sendKeys(COVIDConstants.GOOGLE_URL);
+		JavascriptUtils.clickByJS(urlAddButton);
+		urlField.sendKeys(COVIDConstants.GOOGLE_URL);
+		JavascriptUtils.clickByJS(urlAddButton);
+		urlField.sendKeys(COVIDConstants.GOOGLE_URL);
+		JavascriptUtils.clickByJS(urlAddButton);
+		urlField.sendKeys(COVIDConstants.GOOGLE_URL);
+		JavascriptUtils.clickByJS(urlAddButton);
+		JavascriptUtils.clickByJS(urlSaveButton);
+		boolean addedURL=addedUrlLink.getText().contains(COVIDConstants.GOOGLE_URL);
 		Assert.assertTrue(addedURL);
 	}
 	
@@ -213,5 +248,7 @@ public class COVIDHomePage extends CommonUtils{
 		MiscUtils.sleep(500);
 		JavascriptUtils.clickByJS(covidHomeLogoutLink);
 	}
+	
+
 	
 }

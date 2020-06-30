@@ -88,6 +88,19 @@ public class COVIDHomePageImpl extends PageInitializer {
 		dashPage.clickBiospaecimenTypeDdDD();
 		dashPage.enterOtherBiospecimentType(otherTypeValue);
 	}
+	
+	public void submittingFormWithoutDocumentation() {
+		dashPage.searchPrincipalInvestigator("Diego Juarez");
+		pageCache.getCOVIDHomePage().enterIBRProtocolNumber("Automation Test");
+		pageCache.getCOVIDHomePage().enterStudyTitle("Automation Test");
+		pageCache.getCOVIDHomePageImpl().selectBiospaecimenTypeOtherAndEnterOther("Other", "Automation Test");
+		pageCache.getCOVIDHomePage().selectCollectionFrequency();
+		pageCache.getCOVIDHomePage().enterStudySpecificAim("Automation Test");
+		pageCache.getCOVIDHomePage().clickSubmitAndConfirmSubButton();
+
+		
+		
+	}
 
 
 }
