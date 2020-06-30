@@ -92,8 +92,6 @@ public class COVIDHomePage extends CommonUtils{
 	@FindBy(xpath="//h4[text()='Related URL(s)']/following::a[1]")
 	private WebElement addedUrlLink;
 	
-	
-	
 	@FindBy(xpath = "//button[@ng-click='c.confirmSubmission();']")
 	private WebElement submitButton;
 	
@@ -109,6 +107,26 @@ public class COVIDHomePage extends CommonUtils{
 	@FindBy(xpath = "//*[text()=' Study documentation is required. Please attach the appropriate file(s). ']")
 	private WebElement studyDocumentationErrorMessage;
 	
+	@FindBy(xpath = "//p[@class='text-content']")
+	private WebElement homePageVerbiage;
+	
+	@FindBy(xpath = "//*[text()=' Please enter an IRB protocol number. This field is required. ']")
+	private WebElement irbProtocolNumberErrormsg;
+	
+	@FindBy(xpath = "//*[text()=' Please enter a title for this study. This field is required. ']")
+	private WebElement studyTitleErrorMsg;
+	
+	@FindBy(xpath = "//*[text()=' Please select the appropriate collection frequency. This field is required. ']")
+	private WebElement biospecimenCollFreqErrorMessage;
+	
+	@FindBy(xpath = "//p[text()=' Please enter the study specific aims. This field is required. ']")
+	private WebElement studySpecificAimsErrorMessage;
+	
+	@FindBy(xpath = "//*[@id='approve-button']")
+	private List<WebElement> approveButtons;
+	
+	@FindBy(xpath = "//*[@id='reject-button']")
+	private WebElement rejectButtons;
 	
 
 	// initialize all variables
@@ -133,6 +151,12 @@ public class COVIDHomePage extends CommonUtils{
 		MiscUtils.sleep(1000);
 	}
 
+	public List<WebElement> approveButtons() {
+		return  approveButtons;
+	}
+	public WebElement rejectButtons() {
+		return rejectButtons;
+	}
 	public WebElement instituteField() {
 		return instituteField;
 	}
@@ -157,15 +181,41 @@ public class COVIDHomePage extends CommonUtils{
 	public WebElement goBackButton() {
 		return goBackButton;
 	}
+	public WebElement homePageVerbiage() {
+		return homePageVerbiage;
+	}
 	
 	public WebElement studyDocumentationErrorMessage() {
 		return studyDocumentationErrorMessage;
 	}
+	
+	public WebElement irbProtocolNumberErrormsg() {
+		return irbProtocolNumberErrormsg;
+	}
+	public WebElement studyTitleErrorMsg() {
+		return studyTitleErrorMsg;
+	}
+	public WebElement biospecimenCollFreqErrorMessage() {
+		return biospecimenCollFreqErrorMessage;
+	}
+	public WebElement ibrProtocolField() {
+		
+		return ibrProtocolField;
+	}
+	public WebElement studySpecificAims() {
+		return studySpecificAims;
+	}
 
+	public WebElement studySpecificAimsErrorMessage() {
+		return studySpecificAimsErrorMessage;
+	}
 	public void enterIBRProtocolNumber(String ibrNumber) {
 		ibrProtocolField.sendKeys(ibrNumber);
 	}
 	
+	public WebElement studyTileField() {
+		return studyTileField;
+	}
 	public void enterStudyTitle(String studyTitle) {
 		studyTileField.sendKeys(studyTitle);
 	}
@@ -185,6 +235,11 @@ public class COVIDHomePage extends CommonUtils{
 	public void selectCollectionFrequency() {
 		JavascriptUtils.clickByJS(collectionFrequencyDd);
 		CommonUtils.selectDropDownValue(collectionFrequencyDd, 1);
+	}
+	public void unsellectingCollectionFrequencyValue() {
+		JavascriptUtils.clickByJS(collectionFrequencyDd);
+		
+		
 	}
 		
 	public void verifiyRepositoryLocation(String repoLocation) {

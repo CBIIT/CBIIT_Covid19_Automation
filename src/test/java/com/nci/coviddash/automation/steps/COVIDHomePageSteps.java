@@ -1,9 +1,13 @@
 package com.nci.coviddash.automation.steps;
 
+import java.util.List;
+
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 
 import com.nci.automation.local.utils.PageCache;
 import com.nci.automation.utils.CucumberLogUtils;
+import com.nci.automation.utils.MiscUtils;
 import com.nci.automation.xceptions.TestingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -130,8 +134,6 @@ public class COVIDHomePageSteps {
 		pageCache.getCOVIDHomePage().attachingMultipleURLs();
 	}
 
-//START FROM HERE
-
 	@When("the User enters all required information")
 	public void the_User_enters_all_required_information() {
 		pageCache.getCOVIDHomePageImpl().submittingFormWithoutDocumentation();
@@ -167,7 +169,87 @@ public class COVIDHomePageSteps {
 		String studyDocErrorMessage = pageCache.getCOVIDHomePage().studyDocumentationErrorMessage().getText();
 		Assert.assertTrue(studyDocErrorMessage.contains("required"));
 		CucumberLogUtils.logScreenShot();
+	}
 
+	@When("the user us on the submissions home page")
+	public void the_user_us_on_the_submissions_home_page() {
+		// NO CODE NEEDED LOGIN FUNCTION DIRECTS TO HOMEPAGE
+	}
+
+	@Then("the user should see the home page verbiage")
+	public void the_user_should_see_the_home_page_verbiage() {
+		pageCache.getCOVIDHomePageImpl().verifyingHomePageVerbiage();
+	}
+
+	@When("the User enters any IRB Protocol Number and immediately deletes it")
+	public void the_User_enters_any_IRB_Protocol_Number_and_immediately_deletes_it() {
+		pageCache.getCOVIDHomePage().ibrProtocolField().click();
+	}
+
+	@When("clicks on any other field on the page")
+	public void clicks_on_any_other_field_on_the_page() {
+		pageCache.getCOVIDHomePage().studyTileField().click();
+	}
+
+	@Then("an error message displays with the message “IRB Protocol Number”")
+	public void an_error_message_displays_with_the_message_IRB_Protocol_Number() {
+		String IRBErrorMsg = pageCache.getCOVIDHomePage().irbProtocolNumberErrormsg().getText();
+		Assert.assertTrue(IRBErrorMsg.contains("Please enter an IRB protocol number"));
+		System.out.println("IRB Protocol error message is: " + IRBErrorMsg);
+	}
+
+	@When("the User enters any Study Title and immediately deletes it")
+	public void the_User_enters_any_Study_Title_and_immediately_deletes_it() {
+		pageCache.getCOVIDHomePage().ibrProtocolField().click();
+	}
+
+	@Then("an error message displays with the message “Please enter a title for this study. This field is required.”")
+	public void an_error_message_displays_with_the_message_Please_enter_a_title_for_this_study_This_field_is_required() {
+		String StudyTitleErrormsg = pageCache.getCOVIDHomePage().studyTitleErrorMsg().getText();
+		Assert.assertTrue(StudyTitleErrormsg.contains("Please enter a title for this study. This field is required."));
+		System.out.println("Study Title error message is: " + StudyTitleErrormsg);
+	}
+
+	@When("the User selects a Biospecimen Collection Frequency and then immediately selects no option")
+	public void the_User_selects_a_Biospecimen_Type_and_then_immediately_selects_no_option() {
+		// NO CODE
+	}
+
+	@Then("an error message displays with the message “Please select the appropriate collection frequency. This field is required.”")
+	public void an_error_message_displays_with_the_message_Please_select_the_appropriate_collection_frequency_This_field_is_required() {
+		// NO CODE
+	}
+
+	@When("the User enters any Study Specific Aim and immediately deletes it")
+	public void the_User_enters_any_Study_Specific_Aim_and_immediately_deletes_it() {
+		pageCache.getCOVIDHomePage().studySpecificAims().click();
+		pageCache.getCOVIDHomePage().ibrProtocolField().click();
+	}
+
+	@Then("an error message displays with the message “Please enter the study specific aims. This field is required.”")
+	public void an_error_message_displays_with_the_message_Please_enter_the_study_specific_aims_This_field_is_required() {
+		String studySpecifAimsErrMsg = pageCache.getCOVIDHomePage().studySpecificAimsErrorMessage().getText();
+		Assert.assertTrue(
+				studySpecifAimsErrMsg.contains("Please enter the study specific aims. This field is required."));
+		System.out.println("Study Specific Aims error message is: " + studySpecifAimsErrMsg);
+	}
+	
+	@Given("successfully submits a Study Form")
+	public void successfully_submits_a_Study_Form() {
+		pageCache.getCOVIDHomePageImpl().successfullFormSubmission("Diego Juarez", "Automation Test", "Automation Test", "Automation Test");
+	}
+
+	@When("impersonating a reviewer")
+	public void impersonating_a_reviewer() throws TestingException {
+		pageCache.getNativeViewDashboardPageImpl().impersonateUser("Sharon Savage");
+		
+	}
+
+	@Then("the submitted study is displayed and options to Approve or Reject are available")
+	public void the_submitted_study_is_displayed_and_options_to_Approve_or_Reject_are_available() {
+		
+	    CucumberLogUtils.logScreenShot();
+		pageCache.getSubmissionsPageImpl().findIbrNumberAndclickRejectButton("Automation Test");
 	}
 
 }

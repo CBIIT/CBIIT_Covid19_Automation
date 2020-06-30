@@ -1,6 +1,6 @@
 Feature: COVID Dashboard
   
-  Description: This feature file tests COVIDDASH-7, 8, 20, 134, 135, 138, 136, 137, 142, 148
+  Description: This feature file tests COVIDDASH-7, 8, 20, 134, 135, 138, 136, 137, 140, 142, 143, 148
 
   @regression
   Scenario Outline: Validate Autopulation
@@ -57,7 +57,7 @@ Feature: COVID Dashboard
     And attaches multiple Related URL’s
     Then the User is able to successfully submit a study
 
-  @progression
+  @smoke @regression
   Scenario: Verifying a user is not able to submit a study form when not attaching an IRB Protocol Document
     Given a User has logged in to the NIH COVID-19 Biorepository Dashboard Application
     When the User enters all required information
@@ -67,3 +67,32 @@ Feature: COVID Dashboard
     And sees a pop up with a message indicating study documentation is required before submitting
     And when selecting "Go Back"
     Then under Study Documentation the user sees the message " Study documentation is required. Please attach the appropriate file(s). "
+
+  @smoke @regression
+  Scenario: Verifying Home Page verbiage
+    Given a User has logged in to the NIH COVID-19 Biorepository Dashboard Application
+    When the user us on the submissions home page
+    Then the user should see the home page verbiage
+
+  @smoke @regression
+  Scenario: Verifying empty field messages
+    Given a User has logged in to the NIH COVID-19 Biorepository Dashboard Application
+    When the User enters any IRB Protocol Number and immediately deletes it
+    And clicks on any other field on the page
+    Then an error message displays with the message “IRB Protocol Number”
+    When the User enters any Study Title and immediately deletes it
+    And clicks on any other field on the page
+    Then an error message displays with the message “Please enter a title for this study. This field is required.”
+    When the User selects a Biospecimen Collection Frequency and then immediately selects no option
+    And clicks on any other field on the page
+    Then an error message displays with the message “Please select the appropriate collection frequency. This field is required.”
+    When the User enters any Study Specific Aim and immediately deletes it
+    And clicks on any other field on the page
+    Then an error message displays with the message “Please enter the study specific aims. This field is required.”
+
+  @progression
+  Scenario: Verifying Study Form Submission as a Reviewer
+    Given a User has logged in to the NIH COVID-19 Biorepository Dashboard Application
+    And successfully submits a Study Form
+    When impersonating a reviewer
+    Then the submitted study is displayed and options to Approve or Reject are available

@@ -1,7 +1,7 @@
 package com.nci.coviddash.automation.steps.impl;
 
-
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -88,7 +88,7 @@ public class COVIDHomePageImpl extends PageInitializer {
 		dashPage.clickBiospaecimenTypeDdDD();
 		dashPage.enterOtherBiospecimentType(otherTypeValue);
 	}
-	
+
 	public void submittingFormWithoutDocumentation() {
 		dashPage.searchPrincipalInvestigator("Diego Juarez");
 		pageCache.getCOVIDHomePage().enterIBRProtocolNumber("Automation Test");
@@ -97,10 +97,35 @@ public class COVIDHomePageImpl extends PageInitializer {
 		pageCache.getCOVIDHomePage().selectCollectionFrequency();
 		pageCache.getCOVIDHomePage().enterStudySpecificAim("Automation Test");
 		pageCache.getCOVIDHomePage().clickSubmitAndConfirmSubButton();
-
-		
-		
 	}
 
+	public void verifyingHomePageVerbiage() {
+
+		String homePageVeribiage = pageCache.getCOVIDHomePage().homePageVerbiage().getText();
+		Assert.assertTrue(homePageVeribiage.contains(
+				"The COVID-19 Biorepository is available to all Intramural Research Program (IRP) Investigators with an IRB approved COVID-19 related study. This biorepository will serve two primary functions:"));
+		Assert.assertTrue(homePageVeribiage.contains(
+				"1. Storage for biospecimens collected as part of an IRP IRB approved COVID-19 protocol in the NCI-Frederick Central Repository"));
+		Assert.assertTrue(homePageVeribiage.contains(
+				"2. Provide a catalogue of COVID-related studies with biospecimens to facilitate COVID-19 research for the wider scientific community"));
+		Assert.assertTrue(homePageVeribiage.contains(
+				"To ship and store biospecimens in the NCI-Frederick Repository, please complete the form to the left.\n"
+						+ "All fields are required. The IRB approved protocol must be submitted and please include any other supporting documentation. Your request will be reviewed within 2 business days (as feasible). If approved, you will be contacted with instructions on how to proceed with the transfer of your specimens with a manifest to the Repository."));
+		Assert.assertTrue(homePageVeribiage
+				.contains("If you have any questions, please contact Mandy Black blacka@mail.nih.gov."));
+		Assert.assertTrue(homePageVeribiage.contains("Thank you for your interest in the COVID-19 Biorepository"));
+		System.out.println(homePageVeribiage);
+	}
+	
+	public void successfullFormSubmission(String PIName, String IRBProtocolNumber, String StudyTitle, String StudySpecificAim ) {
+		pageCache.getCOVIDHomePageImpl().enterInvestigatorName(PIName);
+		pageCache.getCOVIDHomePage().enterIBRProtocolNumber(IRBProtocolNumber);
+		pageCache.getCOVIDHomePage().enterStudyTitle(StudyTitle);
+		pageCache.getCOVIDHomePageImpl().selectBiospaecimenTypeOtherAndEnterOther("Other", "Automation Test");
+		pageCache.getCOVIDHomePage().selectCollectionFrequency();
+		pageCache.getCOVIDHomePage().enterStudySpecificAim(StudySpecificAim);
+		pageCache.getCOVIDHomePage().attachStudyDocument();
+		pageCache.getCOVIDHomePage().clickSubmitAndConfirmSubButton();
+	}
 
 }
