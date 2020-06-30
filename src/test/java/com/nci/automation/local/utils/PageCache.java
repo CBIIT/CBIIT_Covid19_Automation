@@ -4,6 +4,7 @@ package com.nci.automation.local.utils;
 import com.nci.coviddash.automation.pages.COVIDHomePage;
 import com.nci.coviddash.automation.pages.ITrustLoginPage;
 import com.nci.coviddash.automation.pages.NativeViewDashboardPage;
+import com.nci.coviddash.automation.pages.SubmissionsPage;
 import com.nci.coviddash.automation.steps.impl.COVIDHomePageImpl;
 import com.nci.coviddash.automation.steps.impl.ITrustLoginPageImpl;
 import com.nci.coviddash.automation.steps.impl.NativeViewDashboardPageImpl;
@@ -37,6 +38,7 @@ public class PageCache {
 	private COVIDHomePage covidHomePage;
 	private ITrustLoginPage iTrustLoginPage;
 	private NativeViewDashboardPage nativeViewDashPage;
+	private SubmissionsPage submissionsPage;
 	
 	
 	//add implementation class object bellow
@@ -87,5 +89,11 @@ public class PageCache {
 		if (nativeViewDashPage == null)
 			nativeViewDashPage = new NativeViewDashboardPage();
 		return nativeViewDashPage;
+	}
+	
+	public SubmissionsPage getSubmissionsPage() {
+		if (submissionsPage == null)
+			submissionsPage = new SubmissionsPage();
+		return submissionsPage;
 	}
 }

@@ -37,6 +37,10 @@ public class SubmissionsPage extends CommonUtils{
 	@FindBy(xpath = "//h1[text()=' Approved / Rejected Studies ']")
 	private WebElement approvedRejectedStudiesText;
 	
+	@FindBy(xpath = "//*[@id='approve-button']")
+	private List<WebElement> approveButtons;
+	
+	
 	
 	
 
@@ -70,5 +74,13 @@ public class SubmissionsPage extends CommonUtils{
 		return approvedRejectedStudiesText.getText();	
 	}
 		
+	public List<WebElement> approveButtons() {
+		return  approveButtons;
+	}
+	
+	public void verifyApproveRejectButton() {		
+		Assert.assertTrue(approveButtons.get(1).isDisplayed());
+		Assert.assertTrue(rejectButtonsList.get(1).isDisplayed());	
+	}
 	
 }

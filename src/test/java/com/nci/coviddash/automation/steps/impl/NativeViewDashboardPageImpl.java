@@ -15,7 +15,7 @@ public class NativeViewDashboardPageImpl extends PageInitializer {
 
 	public void impersonateUser(String approver) throws TestingException {
 		WebDriverUtils.getWebDriver().get("https://service-test.nci.nih.gov/ncisp");
-		MiscUtils.sleep(1500);
+		MiscUtils.sleep(3000);
 		pageCache.getNativeViewDashboardPage().clickNativeViewLink();
 		MiscUtils.sleep(2000);
 		pageCache.getNativeViewDashboardPage().clickUserDropDown();

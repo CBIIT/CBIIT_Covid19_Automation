@@ -90,7 +90,7 @@ Feature: COVID Dashboard
     And clicks on any other field on the page
     Then an error message displays with the message “Please enter the study specific aims. This field is required.”
 
-  @progression
+  @regression
   Scenario: Verifying Study Form Submission as a Reviewer
     Given a User has logged in to the NIH COVID-19 Biorepository Dashboard Application
     And successfully submits a Study Form

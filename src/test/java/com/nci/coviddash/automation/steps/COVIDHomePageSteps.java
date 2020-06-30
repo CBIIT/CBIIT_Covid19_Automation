@@ -195,7 +195,7 @@ public class COVIDHomePageSteps {
 	public void an_error_message_displays_with_the_message_IRB_Protocol_Number() {
 		String IRBErrorMsg = pageCache.getCOVIDHomePage().irbProtocolNumberErrormsg().getText();
 		Assert.assertTrue(IRBErrorMsg.contains("Please enter an IRB protocol number"));
-		System.out.println("IRB Protocol error message is: " + IRBErrorMsg);
+		CucumberLogUtils.logInfo("IRB Protocol error message is: " + IRBErrorMsg);
 	}
 
 	@When("the User enters any Study Title and immediately deletes it")
@@ -233,23 +233,16 @@ public class COVIDHomePageSteps {
 				studySpecifAimsErrMsg.contains("Please enter the study specific aims. This field is required."));
 		System.out.println("Study Specific Aims error message is: " + studySpecifAimsErrMsg);
 	}
-	
+
 	@Given("successfully submits a Study Form")
 	public void successfully_submits_a_Study_Form() {
-		pageCache.getCOVIDHomePageImpl().successfullFormSubmission("Diego Juarez", "Automation Test", "Automation Test", "Automation Test");
+		pageCache.getCOVIDHomePageImpl().successfullFormSubmission("Diego Juarez", "Automation Test", "Automation Test",
+				"Automation Test");
 	}
 
 	@When("impersonating a reviewer")
 	public void impersonating_a_reviewer() throws TestingException {
-		pageCache.getNativeViewDashboardPageImpl().impersonateUser("Sharon Savage");
-		
-	}
-
-	@Then("the submitted study is displayed and options to Approve or Reject are available")
-	public void the_submitted_study_is_displayed_and_options_to_Approve_or_Reject_are_available() {
-		
-	    CucumberLogUtils.logScreenShot();
-		pageCache.getSubmissionsPageImpl().findIbrNumberAndclickRejectButton("Automation Test");
+		pageCache.getSubmissionsPageImpl().rejectStudyUsingIbrNumber("Sharon Savage", "Automation Test");
 	}
 
 }

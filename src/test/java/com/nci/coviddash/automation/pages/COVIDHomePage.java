@@ -122,12 +122,7 @@ public class COVIDHomePage extends CommonUtils{
 	@FindBy(xpath = "//p[text()=' Please enter the study specific aims. This field is required. ']")
 	private WebElement studySpecificAimsErrorMessage;
 	
-	@FindBy(xpath = "//*[@id='approve-button']")
-	private List<WebElement> approveButtons;
-	
-	@FindBy(xpath = "//*[@id='reject-button']")
-	private WebElement rejectButtons;
-	
+
 
 	// initialize all variables
 	public COVIDHomePage() {
@@ -151,12 +146,7 @@ public class COVIDHomePage extends CommonUtils{
 		MiscUtils.sleep(1000);
 	}
 
-	public List<WebElement> approveButtons() {
-		return  approveButtons;
-	}
-	public WebElement rejectButtons() {
-		return rejectButtons;
-	}
+
 	public WebElement instituteField() {
 		return instituteField;
 	}
