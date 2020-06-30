@@ -1,13 +1,10 @@
 package com.nci.coviddash.automation.steps;
 
-import java.util.List;
 
 import org.junit.Assert;
-import org.openqa.selenium.WebElement;
 
 import com.nci.automation.local.utils.PageCache;
 import com.nci.automation.utils.CucumberLogUtils;
-import com.nci.automation.utils.MiscUtils;
 import com.nci.automation.xceptions.TestingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -131,7 +128,7 @@ public class COVIDHomePageSteps {
 	@When("attaches multiple Related URL’s")
 	public void attaches_multiple_Related_URL_s() {
 
-		pageCache.getCOVIDHomePage().attachingMultipleURLs();
+		pageCache.getCOVIDHomePageImpl().attachingMultipleURLs();
 	}
 
 	@When("the User enters all required information")

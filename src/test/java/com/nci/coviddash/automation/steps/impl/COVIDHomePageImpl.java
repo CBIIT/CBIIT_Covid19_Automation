@@ -1,10 +1,10 @@
 package com.nci.coviddash.automation.steps.impl;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.nci.automation.local.utils.COVIDConstants;
 import com.nci.automation.local.utils.PageCache;
 import com.nci.automation.local.utils.PageInitializer;
 import com.nci.automation.utils.CucumberLogUtils;
@@ -126,6 +126,23 @@ public class COVIDHomePageImpl extends PageInitializer {
 		pageCache.getCOVIDHomePage().enterStudySpecificAim(StudySpecificAim);
 		pageCache.getCOVIDHomePage().attachStudyDocument();
 		pageCache.getCOVIDHomePage().clickSubmitAndConfirmSubButton();
+	}
+	
+	public void attachingMultipleURLs() {
+		JavascriptUtils.clickByJS(pageCache.getCOVIDHomePage().urlButton());
+		MiscUtils.sleep(1000);
+		pageCache.getCOVIDHomePage().urlField().sendKeys(COVIDConstants.GOOGLE_URL);
+		JavascriptUtils.clickByJS(pageCache.getCOVIDHomePage().urlAddButton());
+		pageCache.getCOVIDHomePage().urlField().sendKeys(COVIDConstants.GOOGLE_URL);
+		JavascriptUtils.clickByJS(pageCache.getCOVIDHomePage().urlAddButton());
+		pageCache.getCOVIDHomePage().urlField().sendKeys(COVIDConstants.GOOGLE_URL);
+		JavascriptUtils.clickByJS(pageCache.getCOVIDHomePage().urlAddButton());
+		pageCache.getCOVIDHomePage().urlField().sendKeys(COVIDConstants.GOOGLE_URL);
+		JavascriptUtils.clickByJS(pageCache.getCOVIDHomePage().urlAddButton());
+		JavascriptUtils.clickByJS(pageCache.getCOVIDHomePage().urlSaveButton());	
+		boolean addedURL = pageCache.getCOVIDHomePage().addedUrlLink().getText().contains(COVIDConstants.GOOGLE_URL);
+		Assert.assertTrue(addedURL);
+		
 	}
 
 }
