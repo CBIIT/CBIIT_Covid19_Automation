@@ -1,6 +1,8 @@
 package com.nci.coviddash.automation.pages;
 
 import java.util.List;
+
+import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -29,6 +31,14 @@ public class SubmissionsPage extends CommonUtils{
 	@FindBy(xpath = "//button[text()='Reject Submission']")
 	private WebElement rejectConfirmButton;
 	
+	@FindBy(xpath = "//h1[text()=' Studies Pending Approval ']")
+	private WebElement studiesPendingApprovalText;
+	
+	@FindBy(xpath = "//h1[text()=' Approved / Rejected Studies ']")
+	private WebElement approvedRejectedStudiesText;
+	
+	
+	
 
 	// initialize all variables
 	public SubmissionsPage() {
@@ -52,7 +62,13 @@ public class SubmissionsPage extends CommonUtils{
 		JavascriptUtils.clickByJS(rejectConfirmButton);
 	}
 	
+	public String getPendingApprovalTableText() {		
+		return studiesPendingApprovalText.getText();
+	}
 	
-	
+	public String getRejectedStudiesTableText() {
+		return approvedRejectedStudiesText.getText();	
+	}
+		
 	
 }

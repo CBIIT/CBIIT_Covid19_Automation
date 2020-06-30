@@ -1,14 +1,6 @@
 Feature: COVID Dashboard
   
-  User Story: 12345
-  Description: This purpose of this scenario is to automate...
-
-  @smoke @regression
-  Scenario: Covid dash Login
-    Given User navigates to the COVID-19 Biorepository login page
-    When the User clicls on Login to access button
-    And logs in by entering iTrust credentials
-    Then the User is directed to the home page
+  Description: This feature file tests COVIDDASH-7, 8, 20, 134, 135, 138, 142, 148
     
 
   @regression

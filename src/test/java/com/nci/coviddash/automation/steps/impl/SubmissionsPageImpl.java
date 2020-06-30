@@ -2,6 +2,7 @@ package com.nci.coviddash.automation.steps.impl;
 
 import java.util.List;
 
+import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import com.nci.automation.local.utils.PageCache;
 import com.nci.automation.local.utils.PageInitializer;
@@ -41,4 +42,14 @@ public class SubmissionsPageImpl extends PageInitializer {
 		pageCache.getSubmissionsPageImpl().findIbrNumberAndclickRejectButton(ibrNumber);
 	}
 
+	
+	public void verifySubmissionsTablesExists(String pendingStudies, String rejectedStudies) {		
+		MiscUtils.sleep(2000);
+		boolean pdngTExists = submissionPage.getPendingApprovalTableText().contains(pendingStudies);		
+		Assert.assertTrue(pdngTExists);			
+		boolean rjctTExists = submissionPage.getRejectedStudiesTableText().contains(rejectedStudies);		
+		Assert.assertTrue(rjctTExists);
+		CucumberLogUtils.logScreenShot();
+	}
+	
 }

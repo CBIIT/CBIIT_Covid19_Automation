@@ -15,7 +15,7 @@ public class COVIDHomePageSteps {
 		pageCache.getCOVIDHomePageImpl().navigateToCOVIDDashLoginPage();
 	}
 
-	@When("the User clicls on Login to access button")
+	@When("the User clicks on Login to access button")
 	public void the_User_clicls_on_Login_to_access_button() {
 		pageCache.getCOVIDHomePageImpl().clickOnLoginToAccessBtn();
 	}
@@ -102,7 +102,19 @@ public class COVIDHomePageSteps {
 		pageCache.getSubmissionsPageImpl().rejectStudyUsingIbrNumber("Sharon Savage", "65YUT55");
 	}
 	
-	
+	@Given("a Reviewer navigates to the COVID{int} Biorepository login page")
+	public void a_Reviewer_navigates_to_the_COVID_Biorepository_login_page(Integer int1) throws TestingException {
+		pageCache.getCOVIDHomePageImpl().navigateToCOVIDDashLoginPage();
+		
+		
+		
+	}
+
+	@When("the Reviewer selects Login to access button")
+	public void the_Reviewer_selects_Login_to_access_button() {
+		
+		pageCache.getCOVIDHomePageImpl().clickOnLoginToAccessBtn();
+	}
 	
 	
 }
