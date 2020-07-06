@@ -14,9 +14,9 @@ import com.nci.automation.web.EnvUtils;
 import com.nci.automation.xceptions.TestingException;
 
 /**
+ * @author sohilz2
  * This class contains methods for interacting with the database.
  */
-
 public class DatabaseDAO {
 
 	/** The connection. */

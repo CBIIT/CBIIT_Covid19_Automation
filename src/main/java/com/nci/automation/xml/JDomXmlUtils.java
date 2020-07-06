@@ -454,32 +454,4 @@ public class JDomXmlUtils {
         return builder.build(reader);
     }
 
-//    /**
-//     * @param updatedxml
-//     * @param xpath
-//     * @param replace
-//     * @return
-//     * @throws IOException
-//     * @throws JDOMException
-//     */
-//    public static String addSection(String xmlContent, String xPath, String sectionValue) throws IOException,
-//            JDOMException {
-//
-//        Document xmlDoc = loadDocument(xmlContent);
-//
-//        List<Element> elementList = getElementListFromXmlDoc(xmlDoc, xPath);
-//
-//        // String[] list = sectionValue.split(":");
-//        elementList.get(0).addContent(sectionValue);
-//
-//        XMLOutputter outputWriter = new XMLOutputter();
-//        outputWriter.setFormat(Format.getPrettyFormat());
-//
-//        StringWriter stringWriter = new StringWriter();
-//        outputWriter.output(xmlDoc, stringWriter);
-//
-//        return StringEscapeUtils.unescapeHtml(stringWriter.toString());
-//
-//    }
-
 }

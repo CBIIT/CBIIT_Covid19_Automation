@@ -35,7 +35,7 @@ public class ITrustLoginPage extends CommonUtils{
 
 	// initialize all variables
 	public ITrustLoginPage() {
-		PageFactory.initElements(WebDriverUtils.getWebDriver(), this);
+		PageFactory.initElements(WebDriverUtils.webDriver, this);
 	}
 	
 	/**

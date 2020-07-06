@@ -5,8 +5,12 @@ import com.nci.automation.utils.EncryptionUtils;
 import com.nci.automation.xceptions.TestingException;
 import com.nci.automation.xml.JDomXmlUtils;
 
-
+/**
+ * This class contains methods to interact with xml files
+ * @author sohilz2
+ */
 public class EnvUtils {
+	
 	
 	/**
 	 * This method will return the application URL. make sure you have 
@@ -69,24 +73,7 @@ public class EnvUtils {
     	final String dbPasswordXPath = "//db/default/password";
         return EncryptionUtils.decrypt(getConfigValue(dbPasswordXPath));
     }
-    
-//    public static String getDatabaseURL(String dbName) throws TestingException {
-//    	final String dbUrlXPath = "//db/"+ dbName+ "/url";
-//        return getConfigValue(dbUrlXPath);
-//    }
-//
-//    public static String getDatabaseUsername(String dbName) throws TestingException {
-//    	final String dbUserNameXPath = "//db/"+ dbName+ "/username";
-//        return getConfigValue(dbUserNameXPath);
-//    }
-//
-//    public static String getDatabasePassword(String dbName) throws TestingException {
-//    	final String dbPasswordXPath = "//db/"+ dbName+ "/password";
-//        return getConfigValue(dbPasswordXPath);
-//    }
-    
-    
-    
+   
     public static String getDbFeedCompareQuery(String dbName, String tableName) throws TestingException {
     	final String dbUrlXPath = "//dbFeedCompareQueries/"+ dbName+ "/"+ tableName +"/query";
         return getConfigValue(dbUrlXPath);
@@ -137,4 +124,19 @@ public class EnvUtils {
 
         return configElementValue;
     }
+    
+//  public static String getDatabaseURL(String dbName) throws TestingException {
+//	final String dbUrlXPath = "//db/"+ dbName+ "/url";
+//    return getConfigValue(dbUrlXPath);
+//}
+//
+//public static String getDatabaseUsername(String dbName) throws TestingException {
+//	final String dbUserNameXPath = "//db/"+ dbName+ "/username";
+//    return getConfigValue(dbUserNameXPath);
+//}
+//
+//public static String getDatabasePassword(String dbName) throws TestingException {
+//	final String dbPasswordXPath = "//db/"+ dbName+ "/password";
+//    return getConfigValue(dbPasswordXPath);
+//}
 }

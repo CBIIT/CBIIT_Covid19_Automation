@@ -39,7 +39,7 @@ public class NativeViewDashboardPage extends CommonUtils{
 
 	// initialize all variables
 	public NativeViewDashboardPage() {
-		PageFactory.initElements(WebDriverUtils.getWebDriver(), this);
+		PageFactory.initElements(WebDriverUtils.webDriver, this);
 	}
 	
 	

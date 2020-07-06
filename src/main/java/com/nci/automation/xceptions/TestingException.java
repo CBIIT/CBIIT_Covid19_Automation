@@ -2,6 +2,8 @@ package com.nci.automation.xceptions;
 
 /**
  * Custom Exception class for Test Automation
+ * @author sohilz2
+ *
  */
 public class TestingException extends Exception
 {

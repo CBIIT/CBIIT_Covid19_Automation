@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import org.apache.commons.lang.StringUtils;
 import com.nci.automation.common.QcTestResult;
 import com.nci.automation.common.ScenarioContext;
+import com.nci.automation.local.utils.PageCache;
 import com.nci.automation.local.utils.PageInitializer;
 import com.nci.automation.utils.DateUtils;
 import com.nci.automation.utils.LocalConfUtils;
@@ -17,22 +18,24 @@ import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 
-
 public class HooksSteps {
 
 	private static final String BUILD_NUMBER = "BUILD_NUMBER";
 	public static String SCENARIO_NAME_TEXT = "scenarioNameText";
-	
+
 	/**
 	 * This method will run before each scenario
+	 * 
 	 * @param s
 	 * @throws TestingException
 	 */
 	@Before
 	public void genericSetUp(Scenario s) throws TestingException {
+		WebDriverUtils.getWebDriver();
+		MiscUtils.sleep(2000);
 		PageInitializer.initializeAllPages();
-		System.out.println("Starting Scenario: "+s.getName());
 		ScenarioContext.localConf = LocalConfUtils.loadLocalConf();
+		System.out.println("Starting Scenario: " + s.getName());
 		ScenarioContext.scenario.set(s);
 		String buildNumber = LocalConfUtils.getProperty(BUILD_NUMBER);
 		String scenarioName = s.getName();
@@ -62,31 +65,33 @@ public class HooksSteps {
 
 	/**
 	 * This method runs after each scenario
+	 * 
 	 * @throws TestingException
 	 * @throws MalformedURLException
 	 */
 	@After
 	public void genericTearDown(Scenario s) throws TestingException {
 
-		if (ScenarioContext.webDriver != null) {
+		if (WebDriverUtils.webDriver != null) {
 			MiscUtils.sleep(2000);
-		}
-		System.out.println("Ending Scenario: "+s.getName());
-		String scenarioName = ScenarioContext.getScenarioName();
-		String scenarioResult = ScenarioContext.scenario.get().getStatus().toString();
-		String scenarioResultsDir = ConfUtils.getResultsDir();
 
-		if (scenarioResult.contentEquals("passed"))
-			scenarioResult = "Passed";
-		else {
-			scenarioResult = "Failed";
-		}
+			System.out.println("Ending Scenario: " + s.getName());
+			String scenarioName = ScenarioContext.getScenarioName();
+			String scenarioResult = ScenarioContext.scenario.get().getStatus().toString();
+			String scenarioResultsDir = ConfUtils.getResultsDir();
 
-		QcTestResult currentQcResult = new QcTestResult(scenarioName, scenarioResult, scenarioResultsDir);
-		ScenarioContext.setCurrentQcResult(currentQcResult);
-		WebDriverUtils.closeWebDriver();	
+			if (scenarioResult.contentEquals("passed"))
+				scenarioResult = "Passed";
+			else {
+				scenarioResult = "Failed";
+			}
+
+			QcTestResult currentQcResult = new QcTestResult(scenarioName, scenarioResult, scenarioResultsDir);
+			ScenarioContext.setCurrentQcResult(currentQcResult);
+			WebDriverUtils.closeWebDriver();
+			PageCache.getInstance().destroyInstances();
+		}
 	}
-
 
 	@Before("@web")
 	public void webSetUp(Scenario s) {
@@ -99,5 +104,5 @@ public class HooksSteps {
 		// use this for web specific clean up
 		System.out.println("web specific clean up");
 	}
-	
+
 }

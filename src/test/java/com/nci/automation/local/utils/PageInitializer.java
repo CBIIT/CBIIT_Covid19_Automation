@@ -13,20 +13,22 @@ import com.nci.coviddash.automation.steps.impl.ITrustLoginPageImpl;
 public class PageInitializer { 
 
 	// declare protected static variables of types of all the pages
-	protected static ITrustLoginPage login;
+	protected static ITrustLoginPage iTrustloginPage;
 	protected static ITrustLoginPageImpl loginImpl;
-	protected static COVIDHomePage dashPage;
+	protected static COVIDHomePage covidHomePage;
 	protected static SubmissionsPage submissionPage;
 	protected static NativeViewDashboardPage nativeViewDashPage;
 	
 	
 	public static void initializeAllPages() {
 		// create instances of all pages and assign them to the variables
-		 login = new ITrustLoginPage();
+		iTrustloginPage = new ITrustLoginPage();
 		 loginImpl=new ITrustLoginPageImpl();
-		 dashPage = new COVIDHomePage();
+		 covidHomePage = new COVIDHomePage();
 		 submissionPage=new SubmissionsPage();
 		 nativeViewDashPage=new NativeViewDashboardPage();
 	}
+	
+	
 	
 }

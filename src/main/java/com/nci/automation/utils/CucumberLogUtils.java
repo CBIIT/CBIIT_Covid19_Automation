@@ -8,7 +8,12 @@ import com.nci.automation.web.WebDriverUtils;
 
 import cucumber.api.Scenario;
 
-
+/**
+ * This class contains cucumber related log utilities
+ * that will allow you to log them to reports
+ * @author sohilz2
+ *
+ */
 public class CucumberLogUtils {
 
     private static Logger logger = Logger.getLogger(CucumberLogUtils.class);

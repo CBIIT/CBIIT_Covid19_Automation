@@ -6,13 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 /**
- * This is a utill class which contains all JavaScript common methods that will
+ * This is a util class which contains all JavaScript common methods that will
  * be used through out the application. New JavaScript methods can be added any
  * time. Modifying the existing methods may result in build failure.
- * 
- * @author Sohil
+ * @author Sohilz2
  */
-
 public class JavascriptUtils extends WebDriverUtils {
 	
 	private static Logger logger = Logger.getLogger(JavascriptUtils.class);
@@ -25,7 +23,7 @@ public class JavascriptUtils extends WebDriverUtils {
 	 * @param web Element
 	 */
 	public static void clickByJS(WebElement element) {
-		JavascriptExecutor js = ((JavascriptExecutor) getWebDriver());
+		JavascriptExecutor js = ((JavascriptExecutor) webDriver);
 		js.executeScript("arguments[0].click();", element);
 	}
 
@@ -36,7 +34,7 @@ public class JavascriptUtils extends WebDriverUtils {
 	 * @param web Element.
 	 */
 	public static void clearByJS(WebElement element) {
-		JavascriptExecutor js = (JavascriptExecutor) getWebDriver();
+		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		js.executeScript("arguments[0].value = '';", element);
 	}
 
@@ -46,7 +44,7 @@ public class JavascriptUtils extends WebDriverUtils {
 	 * @param driver Pass the object of the WebDriver here.
 	 */
 	public static void scrollDown(int pixels) {
-		JavascriptExecutor js = ((JavascriptExecutor) getWebDriver());
+		JavascriptExecutor js = ((JavascriptExecutor) webDriver);
 		js.executeScript("window.scrollBy(0," + pixels + ")");
 	}
 
@@ -56,7 +54,7 @@ public class JavascriptUtils extends WebDriverUtils {
 	 * @param pixel
 	 */
 	public static void scrollUp(int pixel) {
-		JavascriptExecutor js = (JavascriptExecutor) getWebDriver();
+		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		js.executeScript("window.scrollBy(0, -" + pixel + ")");
 	}
 
@@ -66,7 +64,7 @@ public class JavascriptUtils extends WebDriverUtils {
 	 * @param wbe element to which you want to bring in to view.
 	 */
 	public static void scrollIntoView(WebElement element) {
-		JavascriptExecutor js = ((JavascriptExecutor) getWebDriver());
+		JavascriptExecutor js = ((JavascriptExecutor) webDriver);
 		js.executeScript("arguments[0].scrollIntoView(true);", element);
 	}
 
@@ -76,7 +74,7 @@ public class JavascriptUtils extends WebDriverUtils {
 	 * @param web element.
 	 */
 	public static void drawBlueBorder(WebElement element) {
-		JavascriptExecutor js = ((JavascriptExecutor) getWebDriver());
+		JavascriptExecutor js = ((JavascriptExecutor) webDriver);
 		js.executeScript("arguments[0].style.border='3px solid blue'", element);
 	}
 
@@ -86,7 +84,7 @@ public class JavascriptUtils extends WebDriverUtils {
 	 * @param element Pass the web element.
 	 */
 	public static void drawRedBorder(WebElement element) {
-		JavascriptExecutor js = ((JavascriptExecutor) getWebDriver());
+		JavascriptExecutor js = ((JavascriptExecutor) webDriver);
 		js.executeScript("arguments[0].style.border='3px solid Red'", element);
 	}
 
@@ -99,7 +97,6 @@ public class JavascriptUtils extends WebDriverUtils {
 	public static void generateAlert(WebDriver driver, String message) {
 		JavascriptExecutor js = ((JavascriptExecutor) driver);
 		js.executeScript("alert('" + message + "')");
-
 	}
 
 	/**
@@ -144,7 +141,7 @@ public class JavascriptUtils extends WebDriverUtils {
 	 * @param value
 	 */
 	public static void enterValueByJS(WebElement element, String value) {
-		JavascriptExecutor jse = (JavascriptExecutor) getWebDriver();
+		JavascriptExecutor jse = (JavascriptExecutor) webDriver;
 		jse.executeScript("arguments[0].value=value;");
 	}
 
@@ -155,7 +152,7 @@ public class JavascriptUtils extends WebDriverUtils {
 	 * @param date to be selected
 	 */
 	public static void selectDateByJS(WebElement element, String date) {
-		JavascriptExecutor js = (JavascriptExecutor) getWebDriver();
+		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		js.executeScript("arguments[0].setAttribute('value','" + date + "');", element);
 
 	}

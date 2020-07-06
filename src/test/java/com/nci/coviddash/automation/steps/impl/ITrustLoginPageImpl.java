@@ -10,10 +10,10 @@ public class ITrustLoginPageImpl extends PageInitializer{
 	
 	public void loginToITrust() throws TestingException {
 		MiscUtils.sleep(2000);
-		login.enterUsername();
-		login.enterPassword();
+		iTrustloginPage.enterUsername();
+		iTrustloginPage.enterPassword();
 		CucumberLogUtils.logScreenShot();
-		login.clickSignInButton();
+		iTrustloginPage.clickSignInButton();
 	}
 	
 

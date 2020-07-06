@@ -2,6 +2,7 @@ package com.nci.automation.xceptions;
 
 /**
  * Represents Runtime Testing Exception.
+ * @author sohilz2
  */
 public class TestingRuntimeException extends RuntimeException {
 

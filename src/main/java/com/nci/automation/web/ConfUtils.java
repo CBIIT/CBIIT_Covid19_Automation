@@ -2,12 +2,14 @@ package com.nci.automation.web;
 
 import java.io.File;
 import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
-
 import com.nci.automation.common.ScenarioContext;
 import com.nci.automation.utils.LocalConfUtils;
 
+/**
+ * The class contains methods to interact with properties file.
+ * @author sohilz2
+ */
 public class ConfUtils {
 	
 	private static final String ENVIRONMENT_PROPERTY_KEY = "env";

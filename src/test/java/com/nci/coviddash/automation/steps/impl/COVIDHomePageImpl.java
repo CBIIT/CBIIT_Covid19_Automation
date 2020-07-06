@@ -1,10 +1,9 @@
 package com.nci.coviddash.automation.steps.impl;
 
-
 import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.nci.automation.local.utils.COVIDConstants;
 import com.nci.automation.local.utils.PageCache;
 import com.nci.automation.local.utils.PageInitializer;
 import com.nci.automation.utils.CucumberLogUtils;
@@ -18,76 +17,117 @@ public class COVIDHomePageImpl extends PageInitializer {
 
 	private static PageCache pageCache = PageCache.getInstance();
 
-	public static WebDriver driver = null;
+
 	final static String covid = "covid-19-dashboard";
 	final static String attName = "value";
 
 	public void navigateToCOVIDDashLoginPage() throws TestingException {
-		driver = WebDriverUtils.getWebDriver();
-		driver.get(EnvUtils.getApplicationUrl());
+		WebDriverUtils.webDriver.get(EnvUtils.getApplicationUrl());
 	}
 
 	public void clickOnLoginToAccessBtn() {
-		dashPage.clickITrustRedirectButton();
+		covidHomePage.clickITrustRedirectButton();
 	}
 
 	public void verifyUserLoggedIn() {
-		Assert.assertTrue(driver.getCurrentUrl().contains(covid));
+		Assert.assertTrue(WebDriverUtils.webDriver.getCurrentUrl().contains(covid));
 		CucumberLogUtils.logScreenShot();
 	}
 
 	public void loginToCovidDashboard() throws TestingException {
-		driver = WebDriverUtils.getWebDriver();
-		driver.get(EnvUtils.getApplicationUrl());
+		WebDriverUtils.webDriver.get(EnvUtils.getApplicationUrl());
 		MiscUtils.sleep(2000);
-		dashPage.clickITrustRedirectButton();
+		covidHomePage.clickITrustRedirectButton();
 		MiscUtils.sleep(2060);
-		login.enterUsername();
-		login.enterPassword();
-		login.clickSignInButton();
+		iTrustloginPage.enterUsername();
+		iTrustloginPage.enterPassword();
+		iTrustloginPage.clickSignInButton();
 		MiscUtils.sleep(1000);
 	}
 
 	public void verifyFieldsAreDiabled() {
-		Assert.assertFalse(dashPage.instituteField().isEnabled());
-		Assert.assertFalse(dashPage.divisionField().isEnabled());
-		Assert.assertFalse(dashPage.emailAddressField().isEnabled());
-		Assert.assertFalse(dashPage.phonNumberField().isEnabled());
+		Assert.assertFalse(covidHomePage.instituteField().isEnabled());
+		Assert.assertFalse(covidHomePage.divisionField().isEnabled());
+		Assert.assertFalse(covidHomePage.emailAddressField().isEnabled());
+		Assert.assertFalse(covidHomePage.phonNumberField().isEnabled());
 		CucumberLogUtils.logScreenShot();
 	}
 
 	public void enterInvestigatorName(String investgatorName) {
-		dashPage.searchPrincipalInvestigator(investgatorName);
+		covidHomePage.searchPrincipalInvestigator(investgatorName);
 	}
 
 	public void checkFieldsAutoPubulated(String inst, String dvsn, String piEml, String piPhn) {
-		Assert.assertEquals(inst, dashPage.instituteField().getAttribute(attName));
-		Assert.assertEquals(dvsn, dashPage.divisionField().getAttribute(attName));
-		Assert.assertEquals(piEml, dashPage.emailAddressField().getAttribute(attName).substring(11));
-		Assert.assertEquals(piPhn, dashPage.phonNumberField().getAttribute(attName));
+		Assert.assertEquals(inst, covidHomePage.instituteField().getAttribute(attName));
+		Assert.assertEquals(dvsn, covidHomePage.divisionField().getAttribute(attName));
+		Assert.assertEquals(piEml, covidHomePage.emailAddressField().getAttribute(attName).substring(11));
+		Assert.assertEquals(piPhn, covidHomePage.phonNumberField().getAttribute(attName));
 		CucumberLogUtils.logScreenShot();
 	}
 
 	public void submitButtonIsDisbaled() {
-		Assert.assertFalse(dashPage.submitButton().isEnabled());
+		Assert.assertFalse(covidHomePage.submitButton().isEnabled());
 	}
 
 	public void clickSubmitButton() {
-		JavascriptUtils.clickByJS(dashPage.submitButton());
+		JavascriptUtils.clickByJS(covidHomePage.submitButton());
 	}
 
 	public void selectBiospaecimenTypeOtherAndEnterOther(String other, String otherTypeValue) {
 		JavascriptUtils.scrollDown(20000);
-		dashPage.clickBiospaecimenTypeDdDD();
-		for (WebElement ele : dashPage.biospaecimenTypeDdValues()) {
+		covidHomePage.clickBiospaecimenTypeDdDD();
+		for (WebElement ele : covidHomePage.biospaecimenTypeDdValues()) {
 			if (ele.getText().trim().equals(other)) {
 				JavascriptUtils.clickByJS(ele);
 				break;
 			}
 		}
-		dashPage.clickBiospaecimenTypeDdDD();
-		dashPage.enterOtherBiospecimentType(otherTypeValue);
+		covidHomePage.clickBiospaecimenTypeDdDD();
+		covidHomePage.enterOtherBiospecimentType(otherTypeValue);
 	}
 
+	public void submittingFormWithoutDocumentation() {
+		covidHomePage.searchPrincipalInvestigator("Diego Juarez");
+		covidHomePage.enterIBRProtocolNumber("Automation Test");
+		covidHomePage.enterStudyTitle("Automation Test");
+		pageCache.getCOVIDHomePageImpl().selectBiospaecimenTypeOtherAndEnterOther("Other", covid);
+		covidHomePage.selectCollectionFrequency();
+		covidHomePage.enterStudySpecificAim("Avoid reocurrance");
+		covidHomePage.clickSubmitAndConfirmSubButton();
+	}
+
+	public void verifyHomePageVerbiage(String verbage) {
+		String actualVerbage = covidHomePage.getHomePageVerbiageText().replaceAll("\\s", "");
+		String expectedVerbage=verbage.replaceAll("\\s", "");
+		Assert.assertTrue(actualVerbage.equals(expectedVerbage));
+	}
+	
+	public void successfullFormSubmission(String PIName, String IRBProtocolNumber, String StudyTitle, String StudySpecificAim ) {
+		pageCache.getCOVIDHomePageImpl().enterInvestigatorName(PIName);
+		covidHomePage.enterIBRProtocolNumber(IRBProtocolNumber);
+		covidHomePage.enterStudyTitle(StudyTitle);
+		pageCache.getCOVIDHomePageImpl().selectBiospaecimenTypeOtherAndEnterOther("Other", "Automation Test");
+		covidHomePage.selectCollectionFrequency();
+		covidHomePage.enterStudySpecificAim(StudySpecificAim);
+		covidHomePage.attachStudyDocument();
+		covidHomePage.clickSubmitAndConfirmSubButton();
+	}
+	
+	public void attachingMultipleURLs() {
+		JavascriptUtils.clickByJS(pageCache.getCOVIDHomePage().urlButton());
+		MiscUtils.sleep(1000);
+		pageCache.getCOVIDHomePage().urlField().sendKeys(COVIDConstants.GOOGLE_URL);
+		JavascriptUtils.clickByJS(covidHomePage.urlAddButton());
+		covidHomePage.urlField().sendKeys(COVIDConstants.GOOGLE_URL);
+		JavascriptUtils.clickByJS(covidHomePage.urlAddButton());
+		covidHomePage.urlField().sendKeys(COVIDConstants.GOOGLE_URL);
+		JavascriptUtils.clickByJS(covidHomePage.urlAddButton());
+		covidHomePage.urlField().sendKeys(COVIDConstants.GOOGLE_URL);
+		JavascriptUtils.clickByJS(covidHomePage.urlAddButton());
+		JavascriptUtils.clickByJS(covidHomePage.urlSaveButton());	
+		boolean addedURL = covidHomePage.addedUrlLink().getText().contains(COVIDConstants.GOOGLE_URL);
+		Assert.assertTrue(addedURL);
+		
+	}
 
 }

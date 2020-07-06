@@ -20,7 +20,6 @@ public class SubmissionsPage extends CommonUtils{
 	
 	@FindBy(xpath = "//button[@id='reject-button']")
 	private List<WebElement> rejectButtonsList;
-
 	
 	@FindBy(xpath = "//button[@ng-click='selectPendingStudiesPage(c.pendingStudiesCurrentPage + 1);']")
 	private WebElement pendingAprovalNextButton;
@@ -36,13 +35,14 @@ public class SubmissionsPage extends CommonUtils{
 	
 	@FindBy(xpath = "//h1[text()=' Approved / Rejected Studies ']")
 	private WebElement approvedRejectedStudiesText;
-	
-	
+
+	@FindBy(xpath = "//*[@id='approve-button']")
+	private List<WebElement> approveButtons;
 	
 
 	// initialize all variables
 	public SubmissionsPage() {
-		PageFactory.initElements(WebDriverUtils.getWebDriver(), this);
+		PageFactory.initElements(WebDriverUtils.webDriver, this);
 	}
 	
 	public List<WebElement> getPendingApprovalIBRNumbersList() {
@@ -69,6 +69,14 @@ public class SubmissionsPage extends CommonUtils{
 	public String getRejectedStudiesTableText() {
 		return approvedRejectedStudiesText.getText();	
 	}
-		
+
+	public List<WebElement> approveButtons() {
+		return  approveButtons;
+	}
 	
+	public void verifyApproveRejectButton() {		
+		Assert.assertTrue(approveButtons.get(1).isDisplayed());
+		Assert.assertTrue(rejectButtonsList.get(1).isDisplayed());	
+	}
+
 }
