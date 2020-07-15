@@ -2,19 +2,20 @@ Feature: COVID Dashboard
   
   Description: This feature file tests COVIDDASH-7, 8, 20, 134, 135, 138, 136, 137, 140, 142, 143, 148
 
-  @smoke @regression
+  @smoke  
   Scenario Outline: Validate Autopulation
     Given a User has logged in to the NIH COVID-19 Biorepository Dashboard Application
     And user validates that Institute, Division, Email Address, and Phone Number fields are not editable
     When the User selects a principal Investigator by typing their name in the principal Investigator search box. "<PI Name>"
     Then the Institute, Division, Email Address, and Phone Number fields are auto-populated. "<istitName>","<dvsnName>","<piEmail>","<piPhonNum>"
     Then user validates that Institute, Division, Email Address, and Phone Number fields are not editable
+    And the user logs out
 
     Examples: 
       | PI Name      | istitName | dvsnName | piEmail  | piPhonNum  |
       | Sohil Zalmay | NCI       | OD       | @nih.gov | 2402766573 |
 
-  @smoke @regression 
+  @smoke 
   Scenario: Validate Study Submission
     Given a User has logged in to the NIH COVID-19 Biorepository Dashboard Application
     And the user verifies that the submit button is disbaled by default
@@ -27,7 +28,7 @@ Feature: COVID Dashboard
     And enters Study Specific Aims "Prevent the development or recurrence of disease"
     And attaches an IRB Protocol Document
     And attaches a Related URL
-    Then the User is able to successfully submit a study
+    Then the User is able to successfully submit the study "65YUT55"
 
   @regression 
   Scenario: Validating Study Submission without attaching a Related URL
@@ -41,13 +42,13 @@ Feature: COVID Dashboard
     And enters Study Specific Aims "Test Automation"
     And attaches an IRB Protocol Document
     And does not attach a Related URL
-    Then the User is able to successfully submit a study
+    Then the User is able to successfully submit the study "77YXB33"
 
   @regression
   Scenario: Validating Study Submission with attaching multiple Related URL's
     Given a User has logged in to the NIH COVID-19 Biorepository Dashboard Application
     When the User selects a Principal Investigator "Diego Juarez"
-    And enters a unique IRB Protocol Number which can contain numbers and text such as "77YXB33"
+    And enters a unique IRB Protocol Number which can contain numbers and text such as "77DJ88"
     And enters a Study Title as "Automation Test"
     And selects any Biospecimen Type "Other" and enters Other type as "Automation Test"
     And selects any Biospecimen Collection Frequency
@@ -55,7 +56,7 @@ Feature: COVID Dashboard
     And enters Study Specific Aims "Test Automation"
     And attaches an IRB Protocol Document
     And attaches multiple Related URL’s
-    Then the User is able to successfully submit a study
+    Then the User is able to successfully submit the study "77DJ88"
 
   @smoke @regression 
   Scenario: Verifying a user is not able to submit a study form when not attaching an IRB Protocol Document
@@ -67,6 +68,7 @@ Feature: COVID Dashboard
     And sees a pop up with a message indicating study documentation is required before submitting
     And when selecting "Go Back"
     Then under Study Documentation the user sees the message " Study documentation is required. Please attach the appropriate file(s). "
+		And the user logs out
 
   @regression 
   Scenario: Verifying Home Page verbiage
@@ -98,16 +100,16 @@ Feature: COVID Dashboard
     Given a User has logged in to the NIH COVID-19 Biorepository Dashboard Application
     When the User enters any IRB Protocol Number and immediately deletes it
     And clicks on any other field on the page
-    Then an error message displays with the message “IRB Protocol Number”
+    Then an error message displays for IRB field with the message "Please enter an IRB protocol number"
     When the User enters any Study Title and immediately deletes it
     And clicks on any other field on the page
-    Then an error message displays with the message “Please enter a title for this study. This field is required.”
+    Then an error message displays for title with the message "Please enter a title for this study. This field is required."
     When the User selects a Biospecimen Collection Frequency and then immediately selects no option
     And clicks on any other field on the page
-    Then an error message displays with the message “Please select the appropriate collection frequency. This field is required.”
+    Then an error message displays for colection with the message "Please select the appropriate collection frequency. This field is required."
     When the User enters any Study Specific Aim and immediately deletes it
     And clicks on any other field on the page
-    Then an error message displays with the message “Please enter the study specific aims. This field is required.”
+    Then an error message displays for aims with the message "Please enter the study specific aims. This field is required."
 
   @regression
   Scenario: Verifying Study Form Submission as a Reviewer

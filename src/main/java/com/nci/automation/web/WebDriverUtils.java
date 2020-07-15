@@ -108,6 +108,9 @@ public class WebDriverUtils {
 					capabilities.setCapability("takesScreenshot", true);
 					capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS,
 							new String[] { "--web-security=no", "--ignore-ssl-errors=yes" });
+					
+					String[] phantomArgs = new String[] { "--webdriver-loglevel=NONE" }; 
+					capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, phantomArgs);
 					webDriver = new PhantomJSDriver(capabilities);
 
 				} else {

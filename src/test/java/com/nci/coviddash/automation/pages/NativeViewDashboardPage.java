@@ -52,6 +52,7 @@ public class NativeViewDashboardPage extends CommonUtils{
 	}
 	
 	public void clickNativeViewLink() {
+		MiscUtils.sleep(1000);
 		JavascriptUtils.clickByJS(nativeViewLink);
 	}
 	

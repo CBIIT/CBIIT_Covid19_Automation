@@ -25,7 +25,6 @@ public class SubmissionsPageImpl extends PageInitializer {
 				MiscUtils.sleep(2000);
 				submissionPage.getRejectButtonsList().get(i).click();
 				MiscUtils.sleep(1000);
-				CucumberLogUtils.logScreenShot();
 				submissionPage.enterRejectionReasonClickConfirm();
 				break;
 			}else {

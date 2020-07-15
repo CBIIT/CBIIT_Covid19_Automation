@@ -131,6 +131,7 @@ public class COVIDHomePage extends CommonUtils {
 	 * dashboard page
 	 */
 	public void clickITrustRedirectButton() {
+		waitForClickability(iTrustRedirectForLogin);
 		iTrustRedirectForLogin.click();
 	}
 
@@ -261,7 +262,7 @@ public class COVIDHomePage extends CommonUtils {
 	}
 
 	public void attachStudyDocument() {
-		MiscUtils.sleep(1000);
+		MiscUtils.sleep(1500);
 		attachmentButton.sendKeys(COVIDConstants.DOC_PATH);
 		boolean isFileUploaded = uploadedFile.getText().contains(".docx");
 		Assert.assertTrue(isFileUploaded);
@@ -286,11 +287,11 @@ public class COVIDHomePage extends CommonUtils {
 	public void clickSubmitAndConfirmSubButton() {
 		JavascriptUtils.clickByJS(submitButton);
 		MiscUtils.sleep(500);
-		CucumberLogUtils.logScreenShot();
 		JavascriptUtils.clickByJS(confirmSubmitButton);
 	}
 
 	public void logOutFromCovid() {
+		MiscUtils.sleep(1000);
 		JavascriptUtils.clickByJS(covidHomeLogoutDD);
 		MiscUtils.sleep(500);
 		JavascriptUtils.clickByJS(covidHomeLogoutLink);

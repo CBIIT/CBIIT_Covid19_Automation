@@ -8,10 +8,12 @@ public class TestEnv {
 
 	public static void main(String[] args) throws TestingException {
 
-		
+		System.out.println();
 		System.out.println(EnvUtils.getApplicationUrl());
-		System.out.println(EnvUtils.getUserName("regular"));
-		System.out.println(EnvUtils.getPassword("regular"));
+		System.out.println();
+		System.out.println(EnvUtils.getNativeViewUrl());
+
+
 		
 		
 		

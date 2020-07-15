@@ -1,11 +1,8 @@
 package com.nci.coviddash.automation.steps;
 
-
 import org.junit.Assert;
-
 import com.nci.automation.local.utils.PageCache;
 import com.nci.automation.utils.CucumberLogUtils;
-import com.nci.automation.web.WebDriverUtils;
 import com.nci.automation.xceptions.TestingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -49,6 +46,11 @@ public class COVIDHomePageSteps {
 	@Then("the Institute, Division, Email Address, and Phone Number fields are auto-populated. {string},{string},{string},{string}")
 	public void the_Institute_Division_Email_Address_and_Phone_Number_fields_are_auto_populated(String inst,String dvsn, String piEml, String piPhn) {
 		pageCache.getCOVIDHomePageImpl().checkFieldsAutoPubulated(inst, dvsn, piEml, piPhn);
+	}
+	
+	@Then("the user logs out")
+	public void the_user_logs_out() {
+	   pageCache.getCOVIDHomePage().logOutFromCovid();
 	}
 
 	@Given("the user verifies that the submit button is disbaled by default")
@@ -101,15 +103,15 @@ public class COVIDHomePageSteps {
 		pageCache.getCOVIDHomePage().attachURL();
 	}
 
-	@Then("the User is able to successfully submit a study")
-	public void the_User_is_able_to_successfully_submit_a_study() throws TestingException {
+	@Then("the User is able to successfully submit the study {string}")
+	public void the_User_is_able_to_successfully_submit_the_study(String ibrNumber) throws TestingException {
 		pageCache.getCOVIDHomePage().clickSubmitAndConfirmSubButton();
-		pageCache.getSubmissionsPageImpl().rejectStudyUsingIbrNumber("Sharon Savage", "65YUT55");
+		pageCache.getSubmissionsPageImpl().rejectStudyUsingIbrNumber("Sharon Savage", ibrNumber);
 	}
 
 	@Given("a Reviewer navigates to the COVID{int} Biorepository login page")
 	public void a_Reviewer_navigates_to_the_COVID_Biorepository_login_page(Integer int1) throws TestingException {
-		pageCache.getCOVIDHomePageImpl().navigateToCOVIDDashLoginPage();	
+		pageCache.getCOVIDHomePageImpl().navigateToCOVIDDashLoginPage();
 	}
 
 	@When("the Reviewer selects Login to access button")
@@ -125,7 +127,6 @@ public class COVIDHomePageSteps {
 
 	@When("attaches multiple Related URL’s")
 	public void attaches_multiple_Related_URL_s() {
-
 		pageCache.getCOVIDHomePageImpl().attachingMultipleURLs();
 	}
 
@@ -186,11 +187,11 @@ public class COVIDHomePageSteps {
 		pageCache.getCOVIDHomePage().studyTileField().click();
 	}
 
-	@Then("an error message displays with the message “IRB Protocol Number”")
-	public void an_error_message_displays_with_the_message_IRB_Protocol_Number() {
+	@Then("an error message displays for IRB field with the message {string}")
+	public void an_error_message_displays_for_IRB_field_with_the_message(String irbErrorMsge) {
 		String IRBErrorMsg = pageCache.getCOVIDHomePage().irbProtocolNumberErrormsg().getText();
-		Assert.assertTrue(IRBErrorMsg.contains("Please enter an IRB protocol number"));
-		CucumberLogUtils.logInfo("IRB Protocol error message is: " + IRBErrorMsg);
+		Assert.assertTrue(IRBErrorMsg.contains(irbErrorMsge));
+		CucumberLogUtils.logInfo(IRBErrorMsg);
 	}
 
 	@When("the User enters any Study Title and immediately deletes it")
@@ -198,11 +199,11 @@ public class COVIDHomePageSteps {
 		pageCache.getCOVIDHomePage().ibrProtocolField().click();
 	}
 
-	@Then("an error message displays with the message “Please enter a title for this study. This field is required.”")
-	public void an_error_message_displays_with_the_message_Please_enter_a_title_for_this_study_This_field_is_required() {
+	@Then("an error message displays for title with the message {string}")
+	public void an_error_message_displays_for_title_with_the_message(String errorMsge) {
 		String StudyTitleErrormsg = pageCache.getCOVIDHomePage().studyTitleErrorMsg().getText();
-		Assert.assertTrue(StudyTitleErrormsg.contains("Please enter a title for this study. This field is required."));
-		System.out.println("Study Title error message is: " + StudyTitleErrormsg);
+		Assert.assertTrue(StudyTitleErrormsg.contains(errorMsge));
+		CucumberLogUtils.logInfo(StudyTitleErrormsg);
 	}
 
 	@When("the User selects a Biospecimen Collection Frequency and then immediately selects no option")
@@ -210,8 +211,8 @@ public class COVIDHomePageSteps {
 		// NO CODE
 	}
 
-	@Then("an error message displays with the message “Please select the appropriate collection frequency. This field is required.”")
-	public void an_error_message_displays_with_the_message_Please_select_the_appropriate_collection_frequency_This_field_is_required() {
+	@Then("an error message displays for colection with the message {string}")
+	public void an_error_message_displays_for_colection_with_the_message(String string) {
 		// NO CODE
 	}
 
@@ -221,12 +222,11 @@ public class COVIDHomePageSteps {
 		pageCache.getCOVIDHomePage().ibrProtocolField().click();
 	}
 
-	@Then("an error message displays with the message “Please enter the study specific aims. This field is required.”")
-	public void an_error_message_displays_with_the_message_Please_enter_the_study_specific_aims_This_field_is_required() {
+	@Then("an error message displays for aims with the message {string}")
+	public void an_error_message_displays_for_aims_with_the_message(String aimErrorMsge) {
 		String studySpecifAimsErrMsg = pageCache.getCOVIDHomePage().studySpecificAimsErrorMessage().getText();
-		Assert.assertTrue(
-				studySpecifAimsErrMsg.contains("Please enter the study specific aims. This field is required."));
-		System.out.println("Study Specific Aims error message is: " + studySpecifAimsErrMsg);
+		Assert.assertTrue(studySpecifAimsErrMsg.contains(aimErrorMsge));
+		CucumberLogUtils.logInfo(studySpecifAimsErrMsg);
 	}
 
 	@Given("successfully submits a Study Form")

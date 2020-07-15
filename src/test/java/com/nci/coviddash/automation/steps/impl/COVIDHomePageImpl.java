@@ -20,9 +20,12 @@ public class COVIDHomePageImpl extends PageInitializer {
 
 	final static String covid = "covid-19-dashboard";
 	final static String attName = "value";
+	
+
 
 	public void navigateToCOVIDDashLoginPage() throws TestingException {
 		WebDriverUtils.webDriver.get(EnvUtils.getApplicationUrl());
+		CucumberLogUtils.logInfo(COVIDConstants.getExecutionEnv());
 	}
 
 	public void clickOnLoginToAccessBtn() {
@@ -36,6 +39,7 @@ public class COVIDHomePageImpl extends PageInitializer {
 
 	public void loginToCovidDashboard() throws TestingException {
 		WebDriverUtils.webDriver.get(EnvUtils.getApplicationUrl());
+		CucumberLogUtils.logInfo(COVIDConstants.getExecutionEnv());
 		MiscUtils.sleep(2000);
 		covidHomePage.clickITrustRedirectButton();
 		MiscUtils.sleep(2060);
@@ -50,7 +54,6 @@ public class COVIDHomePageImpl extends PageInitializer {
 		Assert.assertFalse(covidHomePage.divisionField().isEnabled());
 		Assert.assertFalse(covidHomePage.emailAddressField().isEnabled());
 		Assert.assertFalse(covidHomePage.phonNumberField().isEnabled());
-		CucumberLogUtils.logScreenShot();
 	}
 
 	public void enterInvestigatorName(String investgatorName) {
@@ -127,7 +130,6 @@ public class COVIDHomePageImpl extends PageInitializer {
 		JavascriptUtils.clickByJS(covidHomePage.urlSaveButton());	
 		boolean addedURL = covidHomePage.addedUrlLink().getText().contains(COVIDConstants.GOOGLE_URL);
 		Assert.assertTrue(addedURL);
-		
 	}
 
 }
