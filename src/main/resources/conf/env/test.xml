@@ -10,8 +10,7 @@
 		<role name="Role">
 			<user id="regular">
 				<name>regular</name>
-				<userId>c29oaWx6Mg==</userId><!-- add encrypted test user -->
-				<password>d2UhY29tZTEyMzQ=</password><!-- add encrypted test pass -->
+	
 			</user>
 
 
