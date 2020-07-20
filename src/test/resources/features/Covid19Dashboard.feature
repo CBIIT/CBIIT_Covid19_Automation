@@ -2,7 +2,7 @@ Feature: COVID Dashboard
   
   Description: This feature file tests COVIDDASH-7, 8, 20, 134, 135, 138, 136, 137, 140, 142, 143, 148
 
-  @smoke  
+  @smoke @progression
   Scenario Outline: Validate Autopulation
     Given a User has logged in to the NIH COVID-19 Biorepository Dashboard Application
     And user validates that Institute, Division, Email Address, and Phone Number fields are not editable
@@ -15,7 +15,7 @@ Feature: COVID Dashboard
       | PI Name      | istitName | dvsnName | piEmail  | piPhonNum  |
       | Sohil Zalmay | NCI       | OD       | @nih.gov | 2402766573 |
 
-  @smoke 
+  
   Scenario: Validate Study Submission
     Given a User has logged in to the NIH COVID-19 Biorepository Dashboard Application
     And the user verifies that the submit button is disbaled by default
@@ -58,7 +58,7 @@ Feature: COVID Dashboard
     And attaches multiple Related URL’s
     Then the User is able to successfully submit the study "77DJ88"
 
-  @smoke @regression 
+ @regression 
   Scenario: Verifying a user is not able to submit a study form when not attaching an IRB Protocol Document
     Given a User has logged in to the NIH COVID-19 Biorepository Dashboard Application
     When the User enters all required information
